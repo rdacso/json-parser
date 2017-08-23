@@ -62,17 +62,32 @@ var getSelectValues = function getSelectValues(options) {
 
  var adult_data = {
     rider_id: "adult",
-    name_official: "Adult",};
+    name_official: "Adult"};
 
 var student_data = { 
   rider_id: "student",
-  name_official: "Student",};
+  name_official: "Student"};
 
-var adult_json = JSON.stringify(adult_data);
-var student_json = JSON.stringify(student_data);
+var reduced_data = {
+  rider_id: "reduced",
+  name_official: "Reduced"
+};
+
+var other_data = {
+  rider_id: " ",
+  name_official: " "
+};
+
+var adult_json = JSON.stringify(adult_data, null, "  ");
+var student_json = JSON.stringify(student_data, null, "  ");
+var reduced_json = JSON.stringify(reduced_data, null, "  ");
+var other_json = JSON.stringify(other_data, null, "  ");
+
 
 var adult = document.getElementById("rider-adult");
 var student = document.getElementById("rider-student");
+var reduced = document.getElementById("rider-reduced");
+var other = document.getElementById("rider-other");
 
 var formToJSON = function formToJSON(elements) {
   return [].reduce.call(elements, function (data, element) {
@@ -81,10 +96,24 @@ var formToJSON = function formToJSON(elements) {
     if (isValidElement(element) && isValidValue(element)) {
       if (element==adult) {
         data[element.name] = adult_json;
+        document.getElementById("alltext").value +=
+         data[element.name]
+        
       }
       else if (element == student){
         data[element.name] = student_json;
-
+        document.getElementById("alltext").value +=
+         data[element.name]
+      }
+      else if (element == reduced){
+        data[element.name] = reduced_json;
+        document.getElementById("alltext").value +=
+         data[element.name]
+      }
+      else if (element == other) {
+         data[element.name] = other_json;
+        document.getElementById("alltext").value +=
+         data[element.name]
       }
       /*
        * Some fields allow for more than one value, so we need to check if this
@@ -104,10 +133,7 @@ var formToJSON = function formToJSON(elements) {
   }, {});
 };
 
-function addText(event) {
-    var targ = event.target || event.srcElement;
-    document.getElementById("alltext").value += adult_json || targ.innerText;
-}
+
 
 /**
  * A handler function to prevent default submission and run our custom script.
@@ -123,11 +149,7 @@ var handleFormSubmit = function handleFormSubmit(event) {
   var data = formToJSON(form.elements);
 
   // Demo only: print the form data onscreen as a formatted JSON object.
-  var dataContainer = document.getElementsByClassName('results__display')[0];
-
-  // Use `JSON.stringify()` to make the output valid, human-readable JSON.
-  dataContainer.textContent = JSON.stringify(data, null, "  ");
-
+  
   // ...this is where we’d actually do something with the form data...
 };
 
