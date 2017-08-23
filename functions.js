@@ -1,6 +1,10 @@
 'use strict';
 
 
+// var data = 
+//         
+
+// alert(data.rider_id)
 /**
  * Checks that an element has a non-empty `name` and `value` property.
  * @param  {Element} element  the element to check
@@ -48,69 +52,62 @@ var getSelectValues = function getSelectValues(options) {
   }, []);
 };
 
-/**
- * A more verbose implementation of `formToJSON()` to explain how it works.
- *
- * NOTE: This function is unused, and is only here for the purpose of explaining how
- * reducing form elements works.
- *
- * @param  {HTMLFormControlsCollection} elements  the form elements
- * @return {Object}                               form data as an object literal
- */
-var formToJSON_deconstructed = function formToJSON_deconstructed(elements) {
 
-  // This is the function that is called on each element of the array.
-  var reducerFunction = function reducerFunction(data, element) {
-
-    // Add the current field to the object.
-    data[element.name] = element.value;
-
-    // For the demo only: show each step in the reducer’s progress.
-    console.log(JSON.stringify(data));
-
-    return data;
-  };
-
-  // This is used as the initial value of `data` in `reducerFunction()`.
-  var reducerInitialValue = {};
-
-  // To help visualize what happens, log the inital value, which we know is `{}`.
-  console.log('Initial `data` value:', JSON.stringify(reducerInitialValue));
-
-  // Now we reduce by `call`-ing `Array.prototype.reduce()` on `elements`.
-  var formData = [].reduce.call(elements, reducerFunction, reducerInitialValue);
-
-  // The result is then returned for use elsewhere.
-  return formData;
-};
 
 /**
  * Retrieves input data from a form and returns it as a JSON object.
  * @param  {HTMLFormControlsCollection} elements  the form elements
  * @return {Object}                               form data as an object literal
  */
+
+ var adult_data = {
+    rider_id: "adult",
+    name_official: "Adult",};
+
+var student_data = { 
+  rider_id: "student",
+  name_official: "Student",};
+
+var adult_json = JSON.stringify(adult_data);
+var student_json = JSON.stringify(student_data);
+
+var adult = document.getElementById("rider-adult");
+var student = document.getElementById("rider-student");
+
 var formToJSON = function formToJSON(elements) {
   return [].reduce.call(elements, function (data, element) {
 
     // Make sure the element has the required properties and should be added.
     if (isValidElement(element) && isValidValue(element)) {
+      if (element==adult) {
+        data[element.name] = adult_json;
+      }
+      else if (element == student){
+        data[element.name] = student_json;
 
+      }
       /*
        * Some fields allow for more than one value, so we need to check if this
        * is one of those fields and, if so, store the values as an array.
        */
-      if (isCheckbox(element)) {
-        data[element.name] = (data[element.name] || []).concat(element.value);
-      } else if (isMultiSelect(element)) {
-        data[element.name] = getSelectValues(element);
-      } else {
-        data[element.name] = element.value;
-      }
+      // if (isCheckbox(element)) {
+      //   data[element.name] = (data[element.name] || []).concat(element.value);
+      // } else if (isMultiSelect(element)) {
+      //   data[element.name] = getSelectValues(element);
+      // } else {
+      //   data[element.name] = element.value;
+      // }
+
     }
 
     return data;
   }, {});
 };
+
+function addText(event) {
+    var targ = event.target || event.srcElement;
+    document.getElementById("alltext").value += adult_json || targ.innerText;
+}
 
 /**
  * A handler function to prevent default submission and run our custom script.

@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>FareStructure</title>
+</head>
+<body>
+<section class="content">
+  <h1 class="content__heading">Choose your rider!</h1>
+
+  <form class="content__form contact-form">
+    <div class="contact-form__input-group">
+      <input class="contact-form__input contact-form__input--radio" id="rider-adult" name="id" type="radio" value="adult"/>
+      <label class="contact-form__label contact-form__label--radio" for="rider-adult">Adult</label>
+      <input class="contact-form__input contact-form__input--radio" id="rider-student" name="id" type="radio" value="student"/>
+      <label class="contact-form__label contact-form__label--radio" for="rider-student">Student</label>
+      <input class="contact-form__input contact-form__input--radio" id="rider-reduced" name="id" type="radio" value="reduced"/>
+      <label class="contact-form__label contact-form__label--radio" for="rider-reduced">Reduced</label>
+      <input class="contact-form__input contact-form__input--radio" id="rider-other" name="id" type="radio" value="other"/>
+      <label class="contact-form__label contact-form__label--radio" for="rider-other">Other</label>
+    </div>
+
+    <button class="contact-form__button" type="submit" >Generate</button>
+  </form>
+</section>
+<div class="results">
+  <h2 class="results__heading">Form Data</h2>
+      <div>
+      <textarea id="alltext"></textarea>
+    </div>
+  <pre class="results__display-wrapper"><code class="results__display"></code></pre>
+</div>
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script type="text/javascript" src="functions.js"></script>
+<link href="styles.css" rel="stylesheet">
+
+</html>
+
